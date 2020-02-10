@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :show]
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_index, except: [:index, :show, :search]
 
 
   def index
@@ -31,6 +31,10 @@ class PostsController < ApplicationController
   def show
     @comment = Comment.new
     @comments = @post.comments.includes(:user)
+  end
+
+  def search
+    @posts = Tweet.search(params[:keyword])
   end
 
 
